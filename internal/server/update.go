@@ -23,7 +23,7 @@ func (s Server) Update(oldPod, newPod *corev1.Pod) error {
 
 		log := Log{
 			Namespace: newPod.ObjectMeta.Namespace,
-			Pod:       newPod.ObjectMeta.Namespace,
+			Pod:       newPod.ObjectMeta.Name,
 			Labels:    newPod.ObjectMeta.Labels,
 			Container: container.Name,
 			State:     container.State.Terminated,
