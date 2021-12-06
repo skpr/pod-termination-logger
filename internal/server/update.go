@@ -24,9 +24,11 @@ func (s Server) Update(oldPod, newPod *corev1.Pod) error {
 		log := Log{
 			Namespace: newPod.ObjectMeta.Namespace,
 			Pod:       newPod.ObjectMeta.Name,
-			Labels:    newPod.ObjectMeta.Labels,
 			Container: container.Name,
-			State:     container.State.Terminated,
+			Owner:     findOwnerKind(newPod),
+			Labels:    newPod.ObjectMeta.Labels,
+			Spec:      getContainerSpec(container.Name, newPod),
+			State:     *container.State.Terminated,
 		}
 
 		data, err := json.Marshal(&log)
